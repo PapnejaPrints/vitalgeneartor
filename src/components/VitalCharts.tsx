@@ -126,8 +126,8 @@ const VitalCharts: React.FC<VitalChartsProps> = ({ vitalData, selectedVitals }) 
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="bloodPressure.systolic" stroke="#f00" name="Systolic" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="bloodPressure.diastolic" stroke="#00f" name="Diastolic" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey={(data) => data.bloodPressure.systolic} stroke="#f00" name="Systolic" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey={(data) => data.bloodPressure.diastolic} stroke="#00f" name="Diastolic" activeDot={{ r: 8 }} />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
