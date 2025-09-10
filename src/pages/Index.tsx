@@ -3,7 +3,7 @@ import { format, addDays } from "date-fns";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import VitalDataGenerator from "@/components/VitalDataGenerator";
 import VitalCharts from "@/components/VitalCharts";
-import VitalSignFilter from "@/components/VitalSignFilter"; // Import the new filter component
+import VitalSignFilter from "@/components/VitalSignFilter";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle"; // Import ThemeToggle
 
 interface DailyVitals {
   date: string;
@@ -32,7 +33,7 @@ const Index = () => {
     "glucose",
     "temperature",
     "bloodPressure",
-  ]); // State for selected vital signs
+  ]);
 
   const generateFakeVitals = useCallback((start: Date = new Date()): DailyVitals[] => {
     const data: DailyVitals[] = [];
@@ -80,7 +81,10 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-900 p-4 relative"> {/* Added relative for positioning */}
+      <div className="absolute top-4 right-4"> {/* Positioned ThemeToggle */}
+        <ThemeToggle />
+      </div>
       <h1 className="text-4xl font-bold mb-8 text-gray-800 dark:text-gray-100">
         Weekly Vital Data Overview
       </h1>
