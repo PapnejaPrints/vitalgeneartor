@@ -35,7 +35,7 @@ const VitalCharts: React.FC<VitalChartsProps> = ({ vitalData, selectedVitals }) 
             <CardTitle className="text-xl font-bold text-center">Heart Rate (bpm)</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300} key={`heartRate-chart-${vitalData.length}`}>
               <LineChart data={vitalData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
@@ -56,7 +56,7 @@ const VitalCharts: React.FC<VitalChartsProps> = ({ vitalData, selectedVitals }) 
             <CardTitle className="text-xl font-bold text-center">SpO2 (%)</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300} key={`spo2-chart-${vitalData.length}`}>
               <LineChart data={vitalData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
@@ -77,7 +77,7 @@ const VitalCharts: React.FC<VitalChartsProps> = ({ vitalData, selectedVitals }) 
             <CardTitle className="text-xl font-bold text-center">Glucose (mg/dL)</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300} key={`glucose-chart-${vitalData.length}`}>
               <LineChart data={vitalData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
@@ -98,7 +98,7 @@ const VitalCharts: React.FC<VitalChartsProps> = ({ vitalData, selectedVitals }) 
             <CardTitle className="text-xl font-bold text-center">Temperature (°F)</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300} key={`temperature-chart-${vitalData.length}`}>
               <LineChart data={vitalData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
@@ -119,7 +119,7 @@ const VitalCharts: React.FC<VitalChartsProps> = ({ vitalData, selectedVitals }) 
             <CardTitle className="text-xl font-bold text-center">Blood Pressure (mmHg)</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300} key={`bloodPressure-chart-${vitalData.length}`}>
               <LineChart data={vitalData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
