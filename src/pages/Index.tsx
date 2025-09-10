@@ -3,7 +3,15 @@ import { format, addDays } from "date-fns";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import VitalDataGenerator from "@/components/VitalDataGenerator";
 import VitalCharts from "@/components/VitalCharts";
-import { Button } from "@/components/ui/button"; // Import the Button component
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar"; // Import Calendar
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"; // Import Popover components
+import { cn } from "@/lib/utils"; // Import cn for styling
+import { CalendarIcon } from "lucide-react"; // Import CalendarIcon
 
 interface DailyVitals {
   date: string;
@@ -16,13 +24,14 @@ interface DailyVitals {
 
 const Index = () => {
   const [vitalData, setVitalData] = useState<DailyVitals[]>([]);
+  const [startDate, setStartDate] = useState<Date | undefined>(new Date()); // State for selected start date
 
-  const generateFakeVitals = useCallback((): DailyVitals[] => {
+  const generateFakeVitals = useCallback((start: Date = new Date()): DailyVitals[] => {
     const data: DailyVitals[] = [];
-    const startDate = new Date(); // Start from today
+    const currentStartDate = start;
 
     for (let i = 0; i < 7; i++) {
-      const currentDate = addDays(startDate, i);
+      const currentDate = addDays(currentStartDate, i);
       const formattedDate = format(currentDate, "PPP"); // e.g., Oct 27, 2023
 
       // Generate random values within realistic ranges
@@ -46,11 +55,15 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    setVitalData(generateFakeVitals());
-  }, [generateFakeVitals]);
+    if (startDate) {
+      setVitalData(generateFakeVitals(startDate));
+    }
+  }, [generateFakeVitals, startDate]); // Regenerate data when startDate changes
 
   const handleRefreshData = () => {
-    setVitalData(generateFakeVitals());
+    if (startDate) {
+      setVitalData(generateFakeVitals(startDate));
+    }
   };
 
   return (
@@ -58,9 +71,33 @@ const Index = () => {
       <h1 className="text-4xl font-bold mb-8 text-gray-800 dark:text-gray-100">
         Weekly Vital Data Overview
       </h1>
-      <Button onClick={handleRefreshData} className="mb-8 px-6 py-3 text-lg">
-        Refresh Data
-      </Button>
+      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant={"outline"}
+              className={cn(
+                "w-[280px] justify-start text-left font-normal",
+                !startDate && "text-muted-foreground"
+              )}
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {startDate ? format(startDate, "PPP") : <span>Pick a start date</span>}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0">
+            <Calendar
+              mode="single"
+              selected={startDate}
+              onSelect={setStartDate}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+        <Button onClick={handleRefreshData} className="px-6 py-3 text-lg">
+          Refresh Data
+        </Button>
+      </div>
       <VitalDataGenerator vitalData={vitalData} />
       <VitalCharts vitalData={vitalData} />
       <MadeWithDyad />
