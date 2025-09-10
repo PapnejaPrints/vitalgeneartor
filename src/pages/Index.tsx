@@ -3,15 +3,16 @@ import { format, addDays } from "date-fns";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import VitalDataGenerator from "@/components/VitalDataGenerator";
 import VitalCharts from "@/components/VitalCharts";
+import VitalSignFilter from "@/components/VitalSignFilter"; // Import the new filter component
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar"; // Import Calendar
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"; // Import Popover components
-import { cn } from "@/lib/utils"; // Import cn for styling
-import { CalendarIcon } from "lucide-react"; // Import CalendarIcon
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { CalendarIcon } from "lucide-react";
 
 interface DailyVitals {
   date: string;
@@ -24,7 +25,14 @@ interface DailyVitals {
 
 const Index = () => {
   const [vitalData, setVitalData] = useState<DailyVitals[]>([]);
-  const [startDate, setStartDate] = useState<Date | undefined>(new Date()); // State for selected start date
+  const [startDate, setStartDate] = useState<Date | undefined>(new Date());
+  const [selectedVitals, setSelectedVitals] = useState<string[]>([
+    "heartRate",
+    "spo2",
+    "glucose",
+    "temperature",
+    "bloodPressure",
+  ]); // State for selected vital signs
 
   const generateFakeVitals = useCallback((start: Date = new Date()): DailyVitals[] => {
     const data: DailyVitals[] = [];
@@ -32,15 +40,14 @@ const Index = () => {
 
     for (let i = 0; i < 7; i++) {
       const currentDate = addDays(currentStartDate, i);
-      const formattedDate = format(currentDate, "PPP"); // e.g., Oct 27, 2023
+      const formattedDate = format(currentDate, "PPP");
 
-      // Generate random values within realistic ranges
-      const systolic = Math.floor(Math.random() * (140 - 90 + 1)) + 90; // 90-140
-      const diastolic = Math.floor(Math.random() * (90 - 60 + 1)) + 60; // 60-90
-      const heartRate = Math.floor(Math.random() * (100 - 60 + 1)) + 60; // 60-100 bpm
-      const spo2 = Math.floor(Math.random() * (100 - 95 + 1)) + 95; // 95-100%
-      const glucose = Math.floor(Math.random() * (140 - 70 + 1)) + 70; // 70-140 mg/dL
-      const temperature = parseFloat((Math.random() * (99.0 - 97.0) + 97.0).toFixed(1)); // 97.0-99.0 °F
+      const systolic = Math.floor(Math.random() * (140 - 90 + 1)) + 90;
+      const diastolic = Math.floor(Math.random() * (90 - 60 + 1)) + 60;
+      const heartRate = Math.floor(Math.random() * (100 - 60 + 1)) + 60;
+      const spo2 = Math.floor(Math.random() * (100 - 95 + 1)) + 95;
+      const glucose = Math.floor(Math.random() * (140 - 70 + 1)) + 70;
+      const temperature = parseFloat((Math.random() * (99.0 - 97.0) + 97.0).toFixed(1));
 
       data.push({
         date: formattedDate,
@@ -58,12 +65,18 @@ const Index = () => {
     if (startDate) {
       setVitalData(generateFakeVitals(startDate));
     }
-  }, [generateFakeVitals, startDate]); // Regenerate data when startDate changes
+  }, [generateFakeVitals, startDate]);
 
   const handleRefreshData = () => {
     if (startDate) {
       setVitalData(generateFakeVitals(startDate));
     }
+  };
+
+  const handleVitalChange = (vital: string, isChecked: boolean) => {
+    setSelectedVitals((prev) =>
+      isChecked ? [...prev, vital] : prev.filter((v) => v !== vital)
+    );
   };
 
   return (
@@ -98,8 +111,12 @@ const Index = () => {
           Refresh Data
         </Button>
       </div>
+      <VitalSignFilter
+        selectedVitals={selectedVitals}
+        onVitalChange={handleVitalChange}
+      />
       <VitalDataGenerator vitalData={vitalData} />
-      <VitalCharts vitalData={vitalData} />
+      <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} />
       <MadeWithDyad />
     </div>
   );
