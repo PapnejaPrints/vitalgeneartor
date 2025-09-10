@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { convertFahrenheitToCelsius } from "@/lib/utils";
 
 interface DailyVitals {
   date: string;
@@ -20,9 +21,17 @@ interface DailyVitals {
 
 interface VitalDataGeneratorProps {
   vitalData: DailyVitals[];
+  temperatureUnit: 'fahrenheit' | 'celsius';
 }
 
-const VitalDataGenerator: React.FC<VitalDataGeneratorProps> = ({ vitalData }) => {
+const VitalDataGenerator: React.FC<VitalDataGeneratorProps> = ({ vitalData, temperatureUnit }) => {
+  const getDisplayTemperature = (tempFahrenheit: number) => {
+    if (temperatureUnit === 'celsius') {
+      return `${convertFahrenheitToCelsius(tempFahrenheit).toFixed(1)}°C`;
+    }
+    return `${tempFahrenheit}°F`;
+  };
+
   return (
     <Card className="w-full max-w-4xl mx-auto shadow-lg mb-8">
       <CardHeader>
@@ -38,7 +47,7 @@ const VitalDataGenerator: React.FC<VitalDataGeneratorProps> = ({ vitalData }) =>
                 <TableHead>Heart Rate</TableHead>
                 <TableHead>SpO2</TableHead>
                 <TableHead>Glucose</TableHead>
-                <TableHead>Temperature</TableHead>
+                <TableHead>Temperature ({temperatureUnit === 'celsius' ? '°C' : '°F'})</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -49,7 +58,7 @@ const VitalDataGenerator: React.FC<VitalDataGeneratorProps> = ({ vitalData }) =>
                   <TableCell>{day.heartRate} bpm</TableCell>
                   <TableCell>{day.spo2}%</TableCell>
                   <TableCell>{day.glucose} mg/dL</TableCell>
-                  <TableCell>{day.temperature}°F</TableCell>
+                  <TableCell>{getDisplayTemperature(day.temperature)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

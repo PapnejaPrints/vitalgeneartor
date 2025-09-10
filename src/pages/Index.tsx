@@ -14,6 +14,8 @@ import {
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 interface DailyVitals {
   date: string;
@@ -34,6 +36,7 @@ const Index = () => {
     "temperature",
     "bloodPressure",
   ]);
+  const [temperatureUnit, setTemperatureUnit] = useState<'fahrenheit' | 'celsius'>('fahrenheit');
 
   const generateFakeVitals = useCallback((start: Date = new Date()): DailyVitals[] => {
     const data: DailyVitals[] = [];
@@ -48,7 +51,7 @@ const Index = () => {
       const heartRate = Math.floor(Math.random() * (100 - 60 + 1)) + 60;
       const spo2 = Math.floor(Math.random() * (100 - 95 + 1)) + 95;
       const glucose = Math.floor(Math.random() * (140 - 70 + 1)) + 70;
-      const temperature = parseFloat((Math.random() * (99.0 - 97.0) + 97.0).toFixed(1));
+      const temperature = parseFloat((Math.random() * (99.0 - 97.0) + 97.0).toFixed(1)); // Always generate in Fahrenheit
 
       data.push({
         date: formattedDate,
@@ -80,10 +83,23 @@ const Index = () => {
     );
   };
 
+  const handleTemperatureUnitChange = (checked: boolean) => {
+    setTemperatureUnit(checked ? 'celsius' : 'fahrenheit');
+  };
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4 relative">
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-4 right-4 flex items-center space-x-4">
         <ThemeToggle />
+        <div className="flex items-center space-x-2">
+          <Label htmlFor="temp-unit-toggle">°F</Label>
+          <Switch
+            id="temp-unit-toggle"
+            checked={temperatureUnit === 'celsius'}
+            onCheckedChange={handleTemperatureUnitChange}
+          />
+          <Label htmlFor="temp-unit-toggle">°C</Label>
+        </div>
       </div>
       <h1 className="text-4xl font-bold mb-8">
         Weekly Vital Data Overview
@@ -119,8 +135,8 @@ const Index = () => {
         selectedVitals={selectedVitals}
         onVitalChange={handleVitalChange}
       />
-      <VitalDataGenerator vitalData={vitalData} />
-      <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} />
+      <VitalDataGenerator vitalData={vitalData} temperatureUnit={temperatureUnit} />
+      <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} temperatureUnit={temperatureUnit} />
       <MadeWithDyad />
     </div>
   );

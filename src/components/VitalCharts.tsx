@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { convertFahrenheitToCelsius } from "@/lib/utils";
 
 interface DailyVitals {
   date: string;
@@ -22,10 +23,24 @@ interface DailyVitals {
 
 interface VitalChartsProps {
   vitalData: DailyVitals[];
-  selectedVitals: string[]; // New prop for selected vital signs
+  selectedVitals: string[];
+  temperatureUnit: 'fahrenheit' | 'celsius';
 }
 
-const VitalCharts: React.FC<VitalChartsProps> = ({ vitalData, selectedVitals }) => {
+const VitalCharts: React.FC<VitalChartsProps> = ({ vitalData, selectedVitals, temperatureUnit }) => {
+  const getTemperatureChartData = () => {
+    if (temperatureUnit === 'celsius') {
+      return vitalData.map(day => ({
+        ...day,
+        temperature: parseFloat(convertFahrenheitToCelsius(day.temperature).toFixed(1)),
+      }));
+    }
+    return vitalData;
+  };
+
+  const temperatureChartData = getTemperatureChartData();
+  const temperatureUnitLabel = temperatureUnit === 'celsius' ? '°C' : '°F';
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 w-full max-w-4xl mx-auto">
       {/* Heart Rate Chart */}
@@ -95,11 +110,11 @@ const VitalCharts: React.FC<VitalChartsProps> = ({ vitalData, selectedVitals }) 
       {selectedVitals.includes("temperature") && (
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle className="text-xl font-bold text-center">Temperature (°F)</CardTitle>
+            <CardTitle className="text-xl font-bold text-center">Temperature ({temperatureUnitLabel})</CardTitle>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={300} key={`temperature-chart-${vitalData.length}`}>
-              <LineChart data={vitalData}>
+            <ResponsiveContainer width="100%" height={300} key={`temperature-chart-${vitalData.length}-${temperatureUnit}`}>
+              <LineChart data={temperatureChartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
                 <YAxis />
