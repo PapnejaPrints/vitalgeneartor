@@ -25,24 +25,19 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, currentSession) => {
       console.log("onAuthStateChange event:", event, "session:", currentSession);
+      setSession(currentSession);
+      setUser(currentSession?.user || null);
+      setIsLoading(false); // Always set to false after the first event, regardless of type
+
       if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
-        setSession(currentSession);
-        setUser(currentSession?.user || null);
-        setIsLoading(false);
         if (currentSession && window.location.pathname === '/login') {
           console.log("Redirecting from /login to / (SIGNED_IN)");
           navigate('/'); // Redirect authenticated users from login page to home
         }
       } else if (event === 'SIGNED_OUT') {
-        setSession(null);
-        setUser(null);
-        setIsLoading(false);
         console.log("Redirecting to /login (SIGNED_OUT)");
         navigate('/login'); // Redirect unauthenticated users to login page
       } else if (event === 'INITIAL_SESSION') {
-        setSession(currentSession);
-        setUser(currentSession?.user || null);
-        setIsLoading(false);
         if (!currentSession && window.location.pathname !== '/login') {
           console.log("Redirecting to /login (INITIAL_SESSION, no session)");
           navigate('/login'); // Redirect to login if no session and not already on login page
@@ -52,8 +47,9 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
         }
       } else if (event === 'AUTH_ERROR') {
         showError('Authentication error. Please try again.');
-        setIsLoading(false);
         console.error("Supabase AUTH_ERROR:", currentSession);
+        // Even on error, we should stop loading to allow user to interact or see login
+        setIsLoading(false);
       }
     });
 

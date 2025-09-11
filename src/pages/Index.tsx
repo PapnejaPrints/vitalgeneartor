@@ -30,8 +30,8 @@ import { Attribution } from "@/components/Attribution";
 import medicalConditionsData from "@/data/medical_conditions_vital_ranges.json";
 import { RawMedicalConditionsJson, ConditionVitalsParsed } from "@/types/medical";
 import { parseRawConditionData } from "@/utils/medicalDataParser";
-import { useSession } from "@/components/SessionContextProvider"; // Import useSession
-import LogoutButton from "@/components/LogoutButton"; // Import LogoutButton
+import { useSession } from "@/components/SessionContextProvider";
+import LogoutButton from "@/components/LogoutButton";
 
 interface DailyVitals {
   date: string;
@@ -45,7 +45,7 @@ interface DailyVitals {
 type DataRange = 'weekly' | 'monthly' | 'yearly';
 
 const Index = () => {
-  const { session, user, isLoading } = useSession(); // Use the session hook
+  const { session, user } = useSession(); // Use the session hook, isLoading is handled globally
   const [vitalData, setVitalData] = useState<DailyVitals[]>([]);
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [selectedVitals, setSelectedVitals] = useState<string[]>([
@@ -211,24 +211,6 @@ const Index = () => {
     link.click();
     document.body.removeChild(link);
   };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        <p className="text-xl">Loading session...</p>
-      </div>
-    );
-  }
-
-  if (!session) {
-    // This case should ideally be handled by SessionContextProvider redirecting to /login
-    // but as a fallback or during initial load, we can show a message.
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-        <p className="text-xl">Please log in to access the application.</p>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4 relative">
