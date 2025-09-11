@@ -26,7 +26,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Attribution } from "@/components/Attribution"; // Import the new Attribution component
+import { Attribution } from "@/components/Attribution";
+import medicalConditionsData from "@/data/medical_conditions_vital_ranges.json";
+import { MedicalConditionsData, ConditionVitals, MedicalConditionCategory, Condition, SubCondition } from "@/types/medical";
 
 interface DailyVitals {
   date: string;
@@ -51,9 +53,30 @@ const Index = () => {
   ]);
   const [temperatureUnit, setTemperatureUnit] = useState<'fahrenheit' | 'celsius'>('fahrenheit');
   const [dataRange, setDataRange] = useState<DataRange>('weekly');
-  const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
+  const [selectedCondition, setSelectedCondition] = useState<string | undefined>(undefined);
 
-  const generateFakeVitals = useCallback((start: Date = new Date(), range: DataRange = 'weekly', conditions: string[] = []): DailyVitals[] => {
+  const getConditionVitals = useCallback((conditionId: string | undefined): ConditionVitals | undefined => {
+    if (!conditionId) return undefined;
+
+    const data: MedicalConditionsData = medicalConditionsData;
+    for (const category of data) {
+      for (const condition of category.conditions) {
+        if (condition.id === conditionId) {
+          return condition.vitals;
+        }
+        if (condition.subConditions) {
+          for (const subCondition of condition.subConditions) {
+            if (subCondition.id === conditionId) {
+              return subCondition.vitals;
+            }
+          }
+        }
+      }
+    }
+    return undefined;
+  }, []);
+
+  const generateFakeVitals = useCallback((start: Date = new Date(), range: DataRange = 'weekly', conditionId: string | undefined): DailyVitals[] => {
     const data: DailyVitals[] = [];
     const currentStartDate = start;
     let numberOfDays = 7;
@@ -63,6 +86,8 @@ const Index = () => {
     } else if (range === 'yearly') {
       numberOfDays = 365;
     }
+
+    const conditionVitals = getConditionVitals(conditionId);
 
     for (let i = 0; i < numberOfDays; i++) {
       const currentDate = addDays(currentStartDate, i);
@@ -76,33 +101,30 @@ const Index = () => {
       let glucoseMin = 70, glucoseMax = 140;
       let temperatureMin = 97.0, temperatureMax = 99.0;
 
-      // Adjust ranges based on selected conditions
-      if (conditions.includes("diabetes")) {
-        glucoseMin = 120;
-        glucoseMax = 250;
-      }
-      if (conditions.includes("heartDisease")) {
-        heartRateMin = 70;
-        heartRateMax = 110;
-        // Can also slightly affect BP, but hypertension will override
-      }
-      if (conditions.includes("hypertension")) {
-        systolicMin = 130;
-        systolicMax = 180;
-        diastolicMin = 80;
-        diastolicMax = 110;
-      }
-      if (conditions.includes("hypothyroidism")) {
-        heartRateMin = 50;
-        heartRateMax = 80;
-        temperatureMin = 96.0;
-        temperatureMax = 98.0;
-      }
-      if (conditions.includes("fever")) {
-        temperatureMin = 99.5;
-        temperatureMax = 103.0;
-        heartRateMin = Math.max(heartRateMin, 80); // Ensure heart rate is at least 80
-        heartRateMax = Math.max(heartRateMax, 120); // Ensure heart rate is at least 120
+      // Apply ranges based on selected condition from JSON
+      if (conditionVitals) {
+        if (conditionVitals.bloodPressure) {
+          systolicMin = conditionVitals.bloodPressure.systolic.min;
+          systolicMax = conditionVitals.bloodPressure.systolic.max;
+          diastolicMin = conditionVitals.bloodPressure.diastolic.min;
+          diastolicMax = conditionVitals.bloodPressure.diastolic.max;
+        }
+        if (conditionVitals.heartRate) {
+          heartRateMin = conditionVitals.heartRate.min;
+          heartRateMax = conditionVitals.heartRate.max;
+        }
+        if (conditionVitals.spo2) {
+          spo2Min = conditionVitals.spo2.min;
+          spo2Max = conditionVitals.spo2.max;
+        }
+        if (conditionVitals.glucose) {
+          glucoseMin = conditionVitals.glucose.min;
+          glucoseMax = conditionVitals.glucose.max;
+        }
+        if (conditionVitals.temperature) {
+          temperatureMin = conditionVitals.temperature.min;
+          temperatureMax = conditionVitals.temperature.max;
+        }
       }
 
       const systolic = Math.floor(Math.random() * (systolicMax - systolicMin + 1)) + systolicMin;
@@ -122,17 +144,17 @@ const Index = () => {
       });
     }
     return data;
-  }, []);
+  }, [getConditionVitals]);
 
   useEffect(() => {
     if (startDate) {
-      setVitalData(generateFakeVitals(startDate, dataRange, selectedConditions));
+      setVitalData(generateFakeVitals(startDate, dataRange, selectedCondition));
     }
-  }, [generateFakeVitals, startDate, dataRange, selectedConditions]);
+  }, [generateFakeVitals, startDate, dataRange, selectedCondition]);
 
   const handleRefreshData = () => {
     if (startDate) {
-      setVitalData(generateFakeVitals(startDate, dataRange, selectedConditions));
+      setVitalData(generateFakeVitals(startDate, dataRange, selectedCondition));
     }
   };
 
@@ -142,10 +164,8 @@ const Index = () => {
     );
   };
 
-  const handleConditionChange = (condition: string, isChecked: boolean) => {
-    setSelectedConditions((prev) =>
-      isChecked ? [...prev, condition] : prev.filter((c) => c !== condition)
-    );
+  const handleConditionChange = (conditionId: string | undefined) => {
+    setSelectedCondition(conditionId);
   };
 
   const handleTemperatureUnitChange = (checked: boolean) => {
@@ -214,7 +234,7 @@ const Index = () => {
       <h1 className="text-4xl font-bold mb-8">
         Vital Data Generator
       </h1>
-      <Attribution /> {/* Render the new Attribution component near the top */}
+      <Attribution />
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <Popover>
           <PopoverTrigger asChild>
@@ -258,7 +278,7 @@ const Index = () => {
         </Button>
       </div>
       <ConditionSelector
-        selectedConditions={selectedConditions}
+        selectedCondition={selectedCondition}
         onConditionChange={handleConditionChange}
       />
       <VitalSignFilter

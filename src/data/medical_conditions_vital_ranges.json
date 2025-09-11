@@ -1,0 +1,854 @@
+{
+    "Endocrine & Metabolic": {
+        "Diabetes Type 1": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Diabetes Type 2": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Gestational Diabetes": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Hypothyroidism": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Hyperthyroidism": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Addison\u2019s Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Cushing\u2019s Syndrome": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Metabolic Syndrome": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Obesity": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    },
+    "Cardiovascular": {
+        "Coronary Artery Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Heart Failure": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Arrhythmias": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Valvular Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Congenital Heart Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Hypertension": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Peripheral Artery Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Stroke/TIA": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    },
+    "Respiratory": {
+        "Asthma": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "COPD": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Sleep Apnea": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Pulmonary Hypertension": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Interstitial Lung Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    },
+    "Infectious & Immunologic": {
+        "Fever/Infection": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "HIV/AIDS": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Tuberculosis": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Hepatitis A": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Hepatitis B": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Hepatitis C": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Rheumatoid Arthritis": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Lupus (SLE)": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Psoriasis/Psoriatic Arthritis": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Multiple Sclerosis": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    },
+    "Renal & Urologic": {
+        "Chronic Kidney Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Dialysis": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Kidney Stones": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Prostate Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    },
+    "Gastrointestinal": {
+        "Cirrhosis": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Fatty Liver": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Peptic Ulcer Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Crohn\u2019s Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Ulcerative Colitis": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    },
+    "Neurologic & Psychiatric": {
+        "Epilepsy": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Migraine": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Parkinson\u2019s Disease": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Dementia/Alzheimer\u2019s": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Depression": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Anxiety": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Bipolar Disorder": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Schizophrenia": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    },
+    "Hematologic & Oncologic": {
+        "Anemia": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Bleeding Disorders": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Clotting Disorders": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Solid Tumors": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Leukemia": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Lymphoma": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Myeloma": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    },
+    "Musculoskeletal": {
+        "Osteoporosis": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Osteoarthritis": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Gout": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Chronic Back Pain": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    },
+    "Other": {
+        "Pregnancy": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Allergies": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Recent Surgery": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        },
+        "Chronic Pain Syndrome": {
+            "Blood Pressure": {
+                "Systolic": "90-120 mmHg",
+                "Diastolic": "60-80 mmHg"
+            },
+            "Heart Rate": "60-100 bpm",
+            "SpO2": "95-100%",
+            "Glucose": "70-99 mg/dL (fasting), <140 mg/dL (postprandial)",
+            "Temperature": {
+                "Celsius": "36.1-37.2 \u00b0C",
+                "Fahrenheit": "97-99 \u00b0F"
+            }
+        }
+    }
+}
