@@ -11,8 +11,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command";
 import medicalConditionsData from "@/data/medical_conditions_vital_ranges.json";
-import { RawMedicalConditionsJson } from "@/types/medical"; // Import the raw type
+import { RawMedicalConditionsJson } from "@/types/medical";
 
 interface ConditionSelectorProps {
   selectedCondition: string | undefined;
@@ -24,8 +32,6 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
   onConditionChange,
 }) => {
   const data: RawMedicalConditionsJson = medicalConditionsData;
-
-  // Sort categories alphabetically
   const sortedCategories = Object.keys(data).sort();
 
   return (
@@ -43,23 +49,36 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
           <SelectTrigger className="w-[300px]">
             <SelectValue placeholder="Select a condition" />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="none">No Specific Condition</SelectItem>
-            {sortedCategories.map((categoryName) => (
-              <SelectGroup key={categoryName}>
-                <SelectLabel>{categoryName}</SelectLabel>
-                {/* Sort conditions within each category alphabetically */}
-                {Object.keys(data[categoryName]).sort().map((conditionName) => (
-                  <SelectItem
-                    key={`${categoryName}|${conditionName}`}
-                    value={`${categoryName}|${conditionName}`}
-                    className="pl-6"
+          <SelectContent className="p-0">
+            <Command>
+              <CommandInput placeholder="Search condition..." />
+              <CommandList>
+                <CommandEmpty>No condition found.</CommandEmpty>
+                <CommandGroup>
+                  <CommandItem
+                    value="none"
+                    onSelect={() => onConditionChange(undefined)}
+                    className="cursor-pointer"
                   >
-                    {conditionName}
-                  </SelectItem>
+                    No Specific Condition
+                  </CommandItem>
+                </CommandGroup>
+                {sortedCategories.map((categoryName) => (
+                  <CommandGroup key={categoryName} heading={categoryName}>
+                    {Object.keys(data[categoryName]).sort().map((conditionName) => (
+                      <CommandItem
+                        key={`${categoryName}|${conditionName}`}
+                        value={`${categoryName}|${conditionName}`}
+                        onSelect={() => onConditionChange(`${categoryName}|${conditionName}`)}
+                        className="cursor-pointer pl-6"
+                      >
+                        {conditionName}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
                 ))}
-              </SelectGroup>
-            ))}
+              </CommandList>
+            </Command>
           </SelectContent>
         </Select>
       </CardContent>
