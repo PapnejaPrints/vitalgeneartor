@@ -8,13 +8,26 @@ import { LogOut } from 'lucide-react';
 
 const LogoutButton: React.FC = () => {
   const handleLogout = async () => {
-    console.log("Logout button clicked. Attempting to sign out...");
+    console.log("Logout button clicked.");
+    const { data: { session: currentSession }, error: getSessionError } = await supabase.auth.getSession();
+    if (getSessionError) {
+      console.error("Error getting session before logout:", getSessionError.message);
+    } else {
+      console.log("Current session before calling signOut:", currentSession);
+    }
+
+    if (!currentSession) {
+      showError("No active session found to log out from.");
+      console.error("Logout attempted with no active session.");
+      return;
+    }
+
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error("Logout failed:", error.message);
       showError('Failed to log out: ' + error.message);
     } else {
-      console.log("Logout successful. Checking for session state change...");
+      console.log("Logout successful. Session state change should follow.");
       showSuccess('You have been logged out successfully.');
     }
   };
