@@ -11,9 +11,9 @@ import ErrorBoundary from "./components/ErrorBoundary"; // Import the ErrorBound
 const queryClient = new QueryClient();
 
 const App = () => (
-  <ErrorBoundary> {/* Wrap the entire application with ErrorBoundary */}
+  <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme" attribute="class"> {/* Explicitly set attribute="class" */}
         <TooltipProvider>
           <Toaster />
           <Sonner />
