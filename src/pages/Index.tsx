@@ -6,7 +6,7 @@ import { MadeWithDyad } from "@/components/made-with-dyad";
 import VitalDataGenerator from "@/components/VitalDataGenerator";
 import VitalCharts from "@/components/VitalCharts";
 import VitalSignFilter from "@/components/VitalSignFilter";
-import ConditionSelector from "@/components/ConditionSelector"; // Import the new component
+import ConditionSelector from "@/components/ConditionSelector";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Attribution } from "@/components/Attribution"; // Import the new Attribution component
 
 interface DailyVitals {
   date: string;
@@ -50,7 +51,7 @@ const Index = () => {
   ]);
   const [temperatureUnit, setTemperatureUnit] = useState<'fahrenheit' | 'celsius'>('fahrenheit');
   const [dataRange, setDataRange] = useState<DataRange>('weekly');
-  const [selectedConditions, setSelectedConditions] = useState<string[]>([]); // New state for conditions
+  const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
 
   const generateFakeVitals = useCallback((start: Date = new Date(), range: DataRange = 'weekly', conditions: string[] = []): DailyVitals[] => {
     const data: DailyVitals[] = [];
@@ -127,7 +128,7 @@ const Index = () => {
     if (startDate) {
       setVitalData(generateFakeVitals(startDate, dataRange, selectedConditions));
     }
-  }, [generateFakeVitals, startDate, dataRange, selectedConditions]); // Add selectedConditions to dependencies
+  }, [generateFakeVitals, startDate, dataRange, selectedConditions]);
 
   const handleRefreshData = () => {
     if (startDate) {
@@ -265,6 +266,7 @@ const Index = () => {
       />
       <VitalDataGenerator vitalData={vitalData} temperatureUnit={temperatureUnit} selectedVitals={selectedVitals} />
       <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} temperatureUnit={temperatureUnit} />
+      <Attribution /> {/* Render the new Attribution component */}
       <MadeWithDyad />
     </div>
   );
