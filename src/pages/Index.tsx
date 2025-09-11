@@ -1,9 +1,12 @@
+"use client";
+
 import React, { useState, useEffect, useCallback } from "react";
 import { format, addDays } from "date-fns";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import VitalDataGenerator from "@/components/VitalDataGenerator";
 import VitalCharts from "@/components/VitalCharts";
 import VitalSignFilter from "@/components/VitalSignFilter";
+import ConditionSelector from "@/components/ConditionSelector"; // Import the new component
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -47,8 +50,9 @@ const Index = () => {
   ]);
   const [temperatureUnit, setTemperatureUnit] = useState<'fahrenheit' | 'celsius'>('fahrenheit');
   const [dataRange, setDataRange] = useState<DataRange>('weekly');
+  const [selectedConditions, setSelectedConditions] = useState<string[]>([]); // New state for conditions
 
-  const generateFakeVitals = useCallback((start: Date = new Date(), range: DataRange = 'weekly'): DailyVitals[] => {
+  const generateFakeVitals = useCallback((start: Date = new Date(), range: DataRange = 'weekly', conditions: string[] = []): DailyVitals[] => {
     const data: DailyVitals[] = [];
     const currentStartDate = start;
     let numberOfDays = 7;
@@ -63,12 +67,49 @@ const Index = () => {
       const currentDate = addDays(currentStartDate, i);
       const formattedDate = format(currentDate, "yyyy-MM-dd");
 
-      const systolic = Math.floor(Math.random() * (140 - 90 + 1)) + 90;
-      const diastolic = Math.floor(Math.random() * (90 - 60 + 1)) + 60;
-      const heartRate = Math.floor(Math.random() * (100 - 60 + 1)) + 60;
-      const spo2 = Math.floor(Math.random() * (100 - 95 + 1)) + 95;
-      const glucose = Math.floor(Math.random() * (140 - 70 + 1)) + 70;
-      const temperature = parseFloat((Math.random() * (99.0 - 97.0) + 97.0).toFixed(1));
+      // Base ranges for healthy individuals
+      let systolicMin = 90, systolicMax = 140;
+      let diastolicMin = 60, diastolicMax = 90;
+      let heartRateMin = 60, heartRateMax = 100;
+      let spo2Min = 95, spo2Max = 100;
+      let glucoseMin = 70, glucoseMax = 140;
+      let temperatureMin = 97.0, temperatureMax = 99.0;
+
+      // Adjust ranges based on selected conditions
+      if (conditions.includes("diabetes")) {
+        glucoseMin = 120;
+        glucoseMax = 250;
+      }
+      if (conditions.includes("heartDisease")) {
+        heartRateMin = 70;
+        heartRateMax = 110;
+        // Can also slightly affect BP, but hypertension will override
+      }
+      if (conditions.includes("hypertension")) {
+        systolicMin = 130;
+        systolicMax = 180;
+        diastolicMin = 80;
+        diastolicMax = 110;
+      }
+      if (conditions.includes("hypothyroidism")) {
+        heartRateMin = 50;
+        heartRateMax = 80;
+        temperatureMin = 96.0;
+        temperatureMax = 98.0;
+      }
+      if (conditions.includes("fever")) {
+        temperatureMin = 99.5;
+        temperatureMax = 103.0;
+        heartRateMin = Math.max(heartRateMin, 80); // Ensure heart rate is at least 80
+        heartRateMax = Math.max(heartRateMax, 120); // Ensure heart rate is at least 120
+      }
+
+      const systolic = Math.floor(Math.random() * (systolicMax - systolicMin + 1)) + systolicMin;
+      const diastolic = Math.floor(Math.random() * (diastolicMax - diastolicMin + 1)) + diastolicMin;
+      const heartRate = Math.floor(Math.random() * (heartRateMax - heartRateMin + 1)) + heartRateMin;
+      const spo2 = Math.floor(Math.random() * (spo2Max - spo2Min + 1)) + spo2Min;
+      const glucose = Math.floor(Math.random() * (glucoseMax - glucoseMin + 1)) + glucoseMin;
+      const temperature = parseFloat((Math.random() * (temperatureMax - temperatureMin) + temperatureMin).toFixed(1));
 
       data.push({
         date: formattedDate,
@@ -84,19 +125,25 @@ const Index = () => {
 
   useEffect(() => {
     if (startDate) {
-      setVitalData(generateFakeVitals(startDate, dataRange));
+      setVitalData(generateFakeVitals(startDate, dataRange, selectedConditions));
     }
-  }, [generateFakeVitals, startDate, dataRange]);
+  }, [generateFakeVitals, startDate, dataRange, selectedConditions]); // Add selectedConditions to dependencies
 
   const handleRefreshData = () => {
     if (startDate) {
-      setVitalData(generateFakeVitals(startDate, dataRange));
+      setVitalData(generateFakeVitals(startDate, dataRange, selectedConditions));
     }
   };
 
   const handleVitalChange = (vital: string, isChecked: boolean) => {
     setSelectedVitals((prev) =>
       isChecked ? [...prev, vital] : prev.filter((v) => v !== vital)
+    );
+  };
+
+  const handleConditionChange = (condition: string, isChecked: boolean) => {
+    setSelectedConditions((prev) =>
+      isChecked ? [...prev, condition] : prev.filter((c) => c !== condition)
     );
   };
 
@@ -208,6 +255,10 @@ const Index = () => {
           Export CSV
         </Button>
       </div>
+      <ConditionSelector
+        selectedConditions={selectedConditions}
+        onConditionChange={handleConditionChange}
+      />
       <VitalSignFilter
         selectedVitals={selectedVitals}
         onVitalChange={handleVitalChange}
