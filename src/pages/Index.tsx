@@ -214,6 +214,7 @@ const Index = () => {
       <h1 className="text-4xl font-bold mb-8">
         Vital Data Overview
       </h1>
+      <Attribution /> {/* Render the new Attribution component near the top */}
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <Popover>
           <PopoverTrigger asChild>
@@ -266,7 +267,6 @@ const Index = () => {
       />
       <VitalDataGenerator vitalData={vitalData} temperatureUnit={temperatureUnit} selectedVitals={selectedVitals} />
       <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} temperatureUnit={temperatureUnit} />
-      <Attribution /> {/* Render the new Attribution component */}
       <MadeWithDyad />
     </div>
   );
