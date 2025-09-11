@@ -135,7 +135,7 @@ const Index = () => {
         selectedVitals={selectedVitals}
         onVitalChange={handleVitalChange}
       />
-      <VitalDataGenerator vitalData={vitalData} temperatureUnit={temperatureUnit} />
+      <VitalDataGenerator vitalData={vitalData} temperatureUnit={temperatureUnit} selectedVitals={selectedVitals} />
       <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} temperatureUnit={temperatureUnit} />
       <MadeWithDyad />
     </div>

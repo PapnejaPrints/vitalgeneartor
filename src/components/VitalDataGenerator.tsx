@@ -22,9 +22,18 @@ interface DailyVitals {
 interface VitalDataGeneratorProps {
   vitalData: DailyVitals[];
   temperatureUnit: 'fahrenheit' | 'celsius';
+  selectedVitals: string[];
 }
 
-const VitalDataGenerator: React.FC<VitalDataGeneratorProps> = ({ vitalData, temperatureUnit }) => {
+const vitalOptions = [
+  { id: "bloodPressure", label: "Blood Pressure" },
+  { id: "heartRate", label: "Heart Rate" },
+  { id: "spo2", label: "SpO2" },
+  { id: "glucose", label: "Glucose" },
+  { id: "temperature", label: "Temperature" },
+];
+
+const VitalDataGenerator: React.FC<VitalDataGeneratorProps> = ({ vitalData, temperatureUnit, selectedVitals }) => {
   const getDisplayTemperature = (tempFahrenheit: number) => {
     if (temperatureUnit === 'celsius') {
       return `${convertFahrenheitToCelsius(tempFahrenheit).toFixed(1)}°C`;
@@ -43,22 +52,35 @@ const VitalDataGenerator: React.FC<VitalDataGeneratorProps> = ({ vitalData, temp
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[120px]">Date</TableHead>
-                <TableHead>Blood Pressure</TableHead>
-                <TableHead>Heart Rate</TableHead>
-                <TableHead>SpO2</TableHead>
-                <TableHead>Glucose</TableHead>
-                <TableHead>Temperature ({temperatureUnit === 'celsius' ? '°C' : '°F'})</TableHead>
+                {vitalOptions.map((option) =>
+                  selectedVitals.includes(option.id) && (
+                    <TableHead key={option.id}>
+                      {option.label}
+                      {option.id === "temperature" && ` (${temperatureUnit === 'celsius' ? '°C' : '°F'})`}
+                    </TableHead>
+                  )
+                )}
               </TableRow>
             </TableHeader>
             <TableBody>
               {vitalData.map((day, index) => (
                 <TableRow key={index}>
                   <TableCell className="font-medium">{day.date}</TableCell>
-                  <TableCell>{day.bloodPressure.systolic}/{day.bloodPressure.diastolic} mmHg</TableCell>
-                  <TableCell>{day.heartRate} bpm</TableCell>
-                  <TableCell>{day.spo2}%</TableCell>
-                  <TableCell>{day.glucose} mg/dL</TableCell>
-                  <TableCell>{getDisplayTemperature(day.temperature)}</TableCell>
+                  {selectedVitals.includes("bloodPressure") && (
+                    <TableCell>{day.bloodPressure.systolic}/{day.bloodPressure.diastolic} mmHg</TableCell>
+                  )}
+                  {selectedVitals.includes("heartRate") && (
+                    <TableCell>{day.heartRate} bpm</TableCell>
+                  )}
+                  {selectedVitals.includes("spo2") && (
+                    <TableCell>{day.spo2}%</TableCell>
+                  )}
+                  {selectedVitals.includes("glucose") && (
+                    <TableCell>{day.glucose} mg/dL</TableCell>
+                  )}
+                  {selectedVitals.includes("temperature") && (
+                    <TableCell>{getDisplayTemperature(day.temperature)}</TableCell>
+                  )}
                 </TableRow>
               ))}
             </TableBody>
