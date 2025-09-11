@@ -212,7 +212,7 @@ const Index = () => {
         </div>
       </div>
       <h1 className="text-4xl font-bold mb-8">
-        Vital Data Overview
+        Vital Data Generator
       </h1>
       <Attribution /> {/* Render the new Attribution component near the top */}
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
