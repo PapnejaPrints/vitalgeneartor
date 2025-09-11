@@ -11,11 +11,18 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+import { cn, convertFahrenheitToCelsius } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface DailyVitals {
   date: string;
@@ -25,6 +32,8 @@ interface DailyVitals {
   glucose: number;
   temperature: number;
 }
+
+type DataRange = 'weekly' | 'monthly' | 'yearly';
 
 const Index = () => {
   const [vitalData, setVitalData] = useState<DailyVitals[]>([]);
@@ -37,21 +46,29 @@ const Index = () => {
     "bloodPressure",
   ]);
   const [temperatureUnit, setTemperatureUnit] = useState<'fahrenheit' | 'celsius'>('fahrenheit');
+  const [dataRange, setDataRange] = useState<DataRange>('weekly');
 
-  const generateFakeVitals = useCallback((start: Date = new Date()): DailyVitals[] => {
+  const generateFakeVitals = useCallback((start: Date = new Date(), range: DataRange = 'weekly'): DailyVitals[] => {
     const data: DailyVitals[] = [];
     const currentStartDate = start;
+    let numberOfDays = 7;
 
-    for (let i = 0; i < 7; i++) {
+    if (range === 'monthly') {
+      numberOfDays = 30;
+    } else if (range === 'yearly') {
+      numberOfDays = 365;
+    }
+
+    for (let i = 0; i < numberOfDays; i++) {
       const currentDate = addDays(currentStartDate, i);
-      const formattedDate = format(currentDate, "PPP");
+      const formattedDate = format(currentDate, "yyyy-MM-dd");
 
       const systolic = Math.floor(Math.random() * (140 - 90 + 1)) + 90;
       const diastolic = Math.floor(Math.random() * (90 - 60 + 1)) + 60;
       const heartRate = Math.floor(Math.random() * (100 - 60 + 1)) + 60;
       const spo2 = Math.floor(Math.random() * (100 - 95 + 1)) + 95;
       const glucose = Math.floor(Math.random() * (140 - 70 + 1)) + 70;
-      const temperature = parseFloat((Math.random() * (99.0 - 97.0) + 97.0).toFixed(1)); // Always generate in Fahrenheit
+      const temperature = parseFloat((Math.random() * (99.0 - 97.0) + 97.0).toFixed(1));
 
       data.push({
         date: formattedDate,
@@ -67,13 +84,13 @@ const Index = () => {
 
   useEffect(() => {
     if (startDate) {
-      setVitalData(generateFakeVitals(startDate));
+      setVitalData(generateFakeVitals(startDate, dataRange));
     }
-  }, [generateFakeVitals, startDate]);
+  }, [generateFakeVitals, startDate, dataRange]);
 
   const handleRefreshData = () => {
     if (startDate) {
-      setVitalData(generateFakeVitals(startDate));
+      setVitalData(generateFakeVitals(startDate, dataRange));
     }
   };
 
@@ -85,6 +102,51 @@ const Index = () => {
 
   const handleTemperatureUnitChange = (checked: boolean) => {
     setTemperatureUnit(checked ? 'celsius' : 'fahrenheit');
+  };
+
+  const exportToCsv = () => {
+    if (vitalData.length === 0) {
+      alert("No data to export.");
+      return;
+    }
+
+    const headers = [
+      "Date",
+      "Blood Pressure (Systolic)",
+      "Blood Pressure (Diastolic)",
+      "Heart Rate (bpm)",
+      "SpO2 (%)",
+      "Glucose (mg/dL)",
+      `Temperature (${temperatureUnit === 'celsius' ? '°C' : '°F'})`,
+    ];
+
+    const csvRows = [
+      headers.join(','),
+      ...vitalData.map(day => {
+        const temperatureValue = temperatureUnit === 'celsius'
+          ? convertFahrenheitToCelsius(day.temperature).toFixed(1)
+          : day.temperature.toFixed(1);
+
+        return [
+          day.date,
+          day.bloodPressure.systolic,
+          day.bloodPressure.diastolic,
+          day.heartRate,
+          day.spo2,
+          day.glucose,
+          temperatureValue,
+        ].join(',');
+      }),
+    ];
+
+    const csvString = csvRows.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute('download', `vital_data_${dataRange}_${format(startDate || new Date(), 'yyyy-MM-dd')}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -102,7 +164,7 @@ const Index = () => {
         </div>
       </div>
       <h1 className="text-4xl font-bold mb-8">
-        Weekly Vital Data Overview
+        Vital Data Overview
       </h1>
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <Popover>
@@ -127,8 +189,23 @@ const Index = () => {
             />
           </PopoverContent>
         </Popover>
+
+        <Select value={dataRange} onValueChange={(value: DataRange) => setDataRange(value)}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select Range" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="weekly">Weekly</SelectItem>
+            <SelectItem value="monthly">Monthly</SelectItem>
+            <SelectItem value="yearly">Yearly</SelectItem>
+          </SelectContent>
+        </Select>
+
         <Button onClick={handleRefreshData} className="px-6 py-3 text-lg">
           Refresh Data
+        </Button>
+        <Button onClick={exportToCsv} className="px-6 py-3 text-lg">
+          Export CSV
         </Button>
       </div>
       <VitalSignFilter
