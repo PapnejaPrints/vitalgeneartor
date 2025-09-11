@@ -9,11 +9,11 @@ interface VitalSignFilterProps {
 }
 
 const vitalOptions = [
+  { id: "bloodPressure", label: "Blood Pressure" },
   { id: "heartRate", label: "Heart Rate" },
   { id: "spo2", label: "SpO2" },
   { id: "glucose", label: "Glucose" },
   { id: "temperature", label: "Temperature" },
-  { id: "bloodPressure", label: "Blood Pressure" },
 ];
 
 const VitalSignFilter: React.FC<VitalSignFilterProps> = ({
