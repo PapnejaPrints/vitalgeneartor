@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import medicalConditionsData from "@/data/medical_conditions_vital_ranges.json";
-import { MedicalConditionsRoot } from "@/types/medical"; // Changed import to MedicalConditionsRoot
+import { RawMedicalConditionsJson } from "@/types/medical"; // Import the raw type
 
 interface ConditionSelectorProps {
   selectedCondition: string | undefined;
@@ -23,7 +23,7 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
   selectedCondition,
   onConditionChange,
 }) => {
-  const data: MedicalConditionsRoot = medicalConditionsData; // Type changed to MedicalConditionsRoot
+  const data: RawMedicalConditionsJson = medicalConditionsData;
 
   return (
     <Card className="w-full max-w-4xl mx-auto shadow-lg mb-8">
@@ -42,25 +42,17 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="none">No Specific Condition</SelectItem>
-            {data.categories.map((categoryData) => ( // Access .categories property
-              <SelectGroup key={categoryData.category}>
-                <SelectLabel>{categoryData.category}</SelectLabel>
-                {categoryData.conditions.map((condition) => (
-                  <React.Fragment key={condition.id}>
-                    <SelectItem value={condition.id} className="pl-6">
-                      {condition.label}
-                    </SelectItem>
-                    {condition.subConditions &&
-                      condition.subConditions.map((subCondition) => (
-                        <SelectItem
-                          key={subCondition.id}
-                          value={subCondition.id}
-                          className="pl-10"
-                        >
-                          {subCondition.label}
-                        </SelectItem>
-                      ))}
-                  </React.Fragment>
+            {Object.keys(data).map((categoryName) => (
+              <SelectGroup key={categoryName}>
+                <SelectLabel>{categoryName}</SelectLabel>
+                {Object.keys(data[categoryName]).map((conditionName) => (
+                  <SelectItem
+                    key={`${categoryName}|${conditionName}`}
+                    value={`${categoryName}|${conditionName}`}
+                    className="pl-6"
+                  >
+                    {conditionName}
+                  </SelectItem>
                 ))}
               </SelectGroup>
             ))}

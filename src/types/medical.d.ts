@@ -1,38 +1,40 @@
-export interface VitalRange {
+export interface VitalRangeParsed {
   min: number;
   max: number;
 }
 
-export interface ConditionVitals {
+export interface ConditionVitalsParsed {
   bloodPressure?: {
-    systolic: VitalRange;
-    diastolic: VitalRange;
+    systolic: VitalRangeParsed;
+    diastolic: VitalRangeParsed;
   };
-  heartRate?: VitalRange;
-  spo2?: VitalRange;
-  glucose?: VitalRange;
-  temperature?: VitalRange;
+  heartRate?: VitalRangeParsed;
+  spo2?: VitalRangeParsed;
+  glucose?: VitalRangeParsed;
+  temperature?: VitalRangeParsed;
 }
 
-export interface SubCondition {
-  id: string;
-  label: string;
-  vitals?: ConditionVitals;
+// Raw types from the JSON file
+export interface RawBloodPressureRange {
+  Systolic: string;
+  Diastolic: string;
 }
 
-export interface Condition {
-  id: string;
-  label: string;
-  vitals?: ConditionVitals;
-  subConditions?: SubCondition[];
+export interface RawTemperatureRange {
+  Celsius: string;
+  Fahrenheit: string;
 }
 
-export interface MedicalConditionCategory {
-  category: string;
-  conditions: Condition[];
+export interface RawConditionData {
+  "Blood Pressure"?: RawBloodPressureRange;
+  "Heart Rate"?: string;
+  "SpO2"?: string;
+  "Glucose"?: string;
+  "Temperature"?: RawTemperatureRange;
 }
 
-// New root interface for the JSON data
-export interface MedicalConditionsRoot {
-  categories: MedicalConditionCategory[];
+export interface RawMedicalConditionsJson {
+  [category: string]: {
+    [condition: string]: RawConditionData;
+  };
 }

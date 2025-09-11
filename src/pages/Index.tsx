@@ -28,7 +28,8 @@ import {
 } from "@/components/ui/select";
 import { Attribution } from "@/components/Attribution";
 import medicalConditionsData from "@/data/medical_conditions_vital_ranges.json";
-import { MedicalConditionsRoot, ConditionVitals, MedicalConditionCategory, Condition, SubCondition } from "@/types/medical"; // Changed import to MedicalConditionsRoot
+import { RawMedicalConditionsJson, ConditionVitalsParsed } from "@/types/medical"; // Updated imports
+import { parseRawConditionData } from "@/utils/medicalDataParser"; // New import
 
 interface DailyVitals {
   date: string;
@@ -55,23 +56,14 @@ const Index = () => {
   const [dataRange, setDataRange] = useState<DataRange>('weekly');
   const [selectedCondition, setSelectedCondition] = useState<string | undefined>(undefined);
 
-  const getConditionVitals = useCallback((conditionId: string | undefined): ConditionVitals | undefined => {
-    if (!conditionId) return undefined;
+  const getConditionVitals = useCallback((conditionId: string | undefined): ConditionVitalsParsed | undefined => {
+    if (!conditionId || conditionId === "none") return undefined;
 
-    const data: MedicalConditionsRoot = medicalConditionsData; // Type changed to MedicalConditionsRoot
-    for (const category of data.categories) { // Access .categories property
-      for (const condition of category.conditions) {
-        if (condition.id === conditionId) {
-          return condition.vitals;
-        }
-        if (condition.subConditions) {
-          for (const subCondition of condition.subConditions) {
-            if (subCondition.id === conditionId) {
-              return subCondition.vitals;
-            }
-          }
-        }
-      }
+    const [categoryName, conditionName] = conditionId.split('|');
+    const data: RawMedicalConditionsJson = medicalConditionsData;
+
+    if (data[categoryName] && data[categoryName][conditionName]) {
+      return parseRawConditionData(data[categoryName][conditionName]);
     }
     return undefined;
   }, []);
