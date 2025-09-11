@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import medicalConditionsData from "@/data/medical_conditions_vital_ranges.json";
-import { MedicalConditionsData } from "@/types/medical";
+import { MedicalConditionsRoot } from "@/types/medical"; // Changed import to MedicalConditionsRoot
 
 interface ConditionSelectorProps {
   selectedCondition: string | undefined;
@@ -23,7 +23,7 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
   selectedCondition,
   onConditionChange,
 }) => {
-  const data: MedicalConditionsData = medicalConditionsData;
+  const data: MedicalConditionsRoot = medicalConditionsData; // Type changed to MedicalConditionsRoot
 
   return (
     <Card className="w-full max-w-4xl mx-auto shadow-lg mb-8">
@@ -42,7 +42,7 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="none">No Specific Condition</SelectItem>
-            {data.map((categoryData) => (
+            {data.categories.map((categoryData) => ( // Access .categories property
               <SelectGroup key={categoryData.category}>
                 <SelectLabel>{categoryData.category}</SelectLabel>
                 {categoryData.conditions.map((condition) => (

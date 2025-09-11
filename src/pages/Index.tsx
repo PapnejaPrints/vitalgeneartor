@@ -28,7 +28,7 @@ import {
 } from "@/components/ui/select";
 import { Attribution } from "@/components/Attribution";
 import medicalConditionsData from "@/data/medical_conditions_vital_ranges.json";
-import { MedicalConditionsData, ConditionVitals, MedicalConditionCategory, Condition, SubCondition } from "@/types/medical";
+import { MedicalConditionsRoot, ConditionVitals, MedicalConditionCategory, Condition, SubCondition } from "@/types/medical"; // Changed import to MedicalConditionsRoot
 
 interface DailyVitals {
   date: string;
@@ -58,8 +58,8 @@ const Index = () => {
   const getConditionVitals = useCallback((conditionId: string | undefined): ConditionVitals | undefined => {
     if (!conditionId) return undefined;
 
-    const data: MedicalConditionsData = medicalConditionsData;
-    for (const category of data) {
+    const data: MedicalConditionsRoot = medicalConditionsData; // Type changed to MedicalConditionsRoot
+    for (const category of data.categories) { // Access .categories property
       for (const condition of category.conditions) {
         if (condition.id === conditionId) {
           return condition.vitals;

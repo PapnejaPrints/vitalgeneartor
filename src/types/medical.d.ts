@@ -32,4 +32,7 @@ export interface MedicalConditionCategory {
   conditions: Condition[];
 }
 
-export type MedicalConditionsData = MedicalConditionCategory[];
+// New root interface for the JSON data
+export interface MedicalConditionsRoot {
+  categories: MedicalConditionCategory[];
+}
