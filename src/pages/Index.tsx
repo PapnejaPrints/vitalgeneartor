@@ -14,7 +14,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn, convertFahrenheitToCelsius } from "@/lib/utils";
-import { CalendarIcon, LogIn } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -29,9 +29,6 @@ import { Attribution } from "@/components/Attribution";
 import medicalConditionsData from "@/data/medical_conditions_vital_ranges.json";
 import { RawMedicalConditionsJson, ConditionVitalsParsed } from "@/types/medical";
 import { parseRawConditionData } from "@/utils/medicalDataParser";
-import { useSession } from "@/components/SessionContextProvider";
-import LogoutButton from "@/components/LogoutButton";
-import { useNavigate } from "react-router-dom";
 
 interface DailyVitals {
   date: string;
@@ -45,8 +42,6 @@ interface DailyVitals {
 type DataRange = 'weekly' | 'monthly' | 'yearly';
 
 const Index = () => {
-  const { session, user } = useSession();
-  const navigate = useNavigate();
   const [vitalData, setVitalData] = useState<DailyVitals[]>([]);
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [selectedVitals, setSelectedVitals] = useState<string[]>([
@@ -143,15 +138,13 @@ const Index = () => {
   }, [getConditionVitals]);
 
   useEffect(() => {
-    if (startDate && session) { // Only generate data if authenticated
+    if (startDate) {
       setVitalData(generateFakeVitals(startDate, dataRange, selectedCondition));
-    } else if (!session) {
-      setVitalData([]); // Clear data if not authenticated
     }
-  }, [generateFakeVitals, startDate, dataRange, selectedCondition, session]);
+  }, [generateFakeVitals, startDate, dataRange, selectedCondition]);
 
   const handleRefreshData = () => {
-    if (startDate && session) { // Only refresh data if authenticated
+    if (startDate) {
       setVitalData(generateFakeVitals(startDate, dataRange, selectedCondition));
     }
   };
@@ -228,86 +221,66 @@ const Index = () => {
           />
           <Label htmlFor="temp-unit-toggle">°C</Label>
         </div>
-        {session ? (
-          <LogoutButton />
-        ) : (
-          <Button variant="outline" onClick={() => navigate('/login')} className="flex items-center gap-2">
-            <LogIn className="h-4 w-4" />
-            Login
-          </Button>
-        )}
       </div>
       <h1 className="text-4xl font-bold mb-2">
         Vital Data Generator
       </h1>
-      {user && <p className="text-lg mb-4">Welcome, {user.email}!</p>}
       <Attribution />
 
-      {!session ? (
-        <div className="text-center mt-8">
-          <p className="text-xl text-gray-600 dark:text-gray-400 mb-4">
-            Please log in to view and generate vital data.
-          </p>
-          <Button onClick={() => navigate('/login')} className="px-8 py-4 text-lg">
-            Go to Login / Sign Up
+      <>
+        <div className="flex flex-col sm:flex-row gap-4 mb-8">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "w-[280px] justify-start text-left font-normal",
+                  !startDate && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {startDate ? format(startDate, "PPP") : <span>Pick a start date</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                mode="single"
+                selected={startDate}
+                onSelect={setStartDate}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+
+          <Select value={dataRange} onValueChange={(value: DataRange) => setDataRange(value)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select Range" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="weekly">Weekly</SelectItem>
+              <SelectItem value="monthly">Monthly</SelectItem>
+              <SelectItem value="yearly">Yearly</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Button onClick={handleRefreshData} className="px-6 py-3 text-lg">
+            Refresh Data
+          </Button>
+          <Button onClick={exportToCsv} className="px-6 py-3 text-lg">
+            Export CSV
           </Button>
         </div>
-      ) : (
-        <>
-          <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant={"outline"}
-                  className={cn(
-                    "w-[280px] justify-start text-left font-normal",
-                    !startDate && "text-muted-foreground"
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {startDate ? format(startDate, "PPP") : <span>Pick a start date</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={startDate}
-                  onSelect={setStartDate}
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-
-            <Select value={dataRange} onValueChange={(value: DataRange) => setDataRange(value)}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select Range" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="weekly">Weekly</SelectItem>
-                <SelectItem value="monthly">Monthly</SelectItem>
-                <SelectItem value="yearly">Yearly</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Button onClick={handleRefreshData} className="px-6 py-3 text-lg">
-              Refresh Data
-            </Button>
-            <Button onClick={exportToCsv} className="px-6 py-3 text-lg">
-              Export CSV
-            </Button>
-          </div>
-          <ConditionSelector
-            selectedCondition={selectedCondition}
-            onConditionChange={handleConditionChange}
-          />
-          <VitalSignFilter
-            selectedVitals={selectedVitals}
-            onVitalChange={handleVitalChange}
-          />
-          <VitalDataGenerator vitalData={vitalData} temperatureUnit={temperatureUnit} selectedVitals={selectedVitals} />
-          <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} temperatureUnit={temperatureUnit} />
-        </>
-      )}
+        <ConditionSelector
+          selectedCondition={selectedCondition}
+          onConditionChange={handleConditionChange}
+        />
+        <VitalSignFilter
+          selectedVitals={selectedVitals}
+          onVitalChange={handleVitalChange}
+        />
+        <VitalDataGenerator vitalData={vitalData} temperatureUnit={temperatureUnit} selectedVitals={selectedVitals} />
+        <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} temperatureUnit={temperatureUnit} />
+      </>
       <div className="p-4 text-center text-gray-700 dark:text-gray-300 text-sm mt-8">
         <p>Copyright Brahmleen Papneja</p>
       </div>
