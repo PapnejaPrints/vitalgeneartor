@@ -28,8 +28,10 @@ import {
 } from "@/components/ui/select";
 import { Attribution } from "@/components/Attribution";
 import medicalConditionsData from "@/data/medical_conditions_vital_ranges.json";
-import { RawMedicalConditionsJson, ConditionVitalsParsed } from "@/types/medical"; // Updated imports
-import { parseRawConditionData } from "@/utils/medicalDataParser"; // New import
+import { RawMedicalConditionsJson, ConditionVitalsParsed } from "@/types/medical";
+import { parseRawConditionData } from "@/utils/medicalDataParser";
+import { useSession } from "@/components/SessionContextProvider"; // Import useSession
+import LogoutButton from "@/components/LogoutButton"; // Import LogoutButton
 
 interface DailyVitals {
   date: string;
@@ -43,6 +45,7 @@ interface DailyVitals {
 type DataRange = 'weekly' | 'monthly' | 'yearly';
 
 const Index = () => {
+  const { session, user, isLoading } = useSession(); // Use the session hook
   const [vitalData, setVitalData] = useState<DailyVitals[]>([]);
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [selectedVitals, setSelectedVitals] = useState<string[]>([
@@ -139,13 +142,13 @@ const Index = () => {
   }, [getConditionVitals]);
 
   useEffect(() => {
-    if (startDate) {
+    if (startDate && session) { // Only generate data if authenticated
       setVitalData(generateFakeVitals(startDate, dataRange, selectedCondition));
     }
-  }, [generateFakeVitals, startDate, dataRange, selectedCondition]);
+  }, [generateFakeVitals, startDate, dataRange, selectedCondition, session]);
 
   const handleRefreshData = () => {
-    if (startDate) {
+    if (startDate && session) { // Only refresh data if authenticated
       setVitalData(generateFakeVitals(startDate, dataRange, selectedCondition));
     }
   };
@@ -209,6 +212,24 @@ const Index = () => {
     document.body.removeChild(link);
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+        <p className="text-xl">Loading session...</p>
+      </div>
+    );
+  }
+
+  if (!session) {
+    // This case should ideally be handled by SessionContextProvider redirecting to /login
+    // but as a fallback or during initial load, we can show a message.
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+        <p className="text-xl">Please log in to access the application.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground p-4 relative">
       <div className="absolute top-4 right-4 flex items-center space-x-4">
@@ -222,10 +243,12 @@ const Index = () => {
           />
           <Label htmlFor="temp-unit-toggle">°C</Label>
         </div>
+        <LogoutButton />
       </div>
-      <h1 className="text-4xl font-bold mb-8">
+      <h1 className="text-4xl font-bold mb-2">
         Vital Data Generator
       </h1>
+      {user && <p className="text-lg mb-4">Welcome, {user.email}!</p>}
       <Attribution />
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <Popover>
