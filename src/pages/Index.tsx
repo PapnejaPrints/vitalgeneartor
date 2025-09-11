@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { format, addDays } from "date-fns";
-import { MadeWithDyad } from "@/components/made-with-dyad";
 import VitalDataGenerator from "@/components/VitalDataGenerator";
 import VitalCharts from "@/components/VitalCharts";
 import VitalSignFilter from "@/components/VitalSignFilter";
@@ -309,7 +308,9 @@ const Index = () => {
           <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} temperatureUnit={temperatureUnit} />
         </>
       )}
-      <MadeWithDyad />
+      <div className="p-4 text-center text-gray-700 dark:text-gray-300 text-sm mt-8">
+        <p>Copyright Brahmleen Papneja</p>
+      </div>
     </div>
   );
 };
