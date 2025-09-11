@@ -25,6 +25,9 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
 }) => {
   const data: RawMedicalConditionsJson = medicalConditionsData;
 
+  // Sort categories alphabetically
+  const sortedCategories = Object.keys(data).sort();
+
   return (
     <Card className="w-full max-w-4xl mx-auto shadow-lg mb-8">
       <CardHeader>
@@ -42,10 +45,11 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="none">No Specific Condition</SelectItem>
-            {Object.keys(data).map((categoryName) => (
+            {sortedCategories.map((categoryName) => (
               <SelectGroup key={categoryName}>
                 <SelectLabel>{categoryName}</SelectLabel>
-                {Object.keys(data[categoryName]).map((conditionName) => (
+                {/* Sort conditions within each category alphabetically */}
+                {Object.keys(data[categoryName]).sort().map((conditionName) => (
                   <SelectItem
                     key={`${categoryName}|${conditionName}`}
                     value={`${categoryName}|${conditionName}`}
