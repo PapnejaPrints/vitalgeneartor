@@ -34,6 +34,16 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
   const data: RawMedicalConditionsJson = medicalConditionsData;
   const sortedCategories = Object.keys(data).sort();
 
+  // Helper function to get the display name from the condition ID
+  const getDisplayName = (conditionId: string | undefined) => {
+    if (!conditionId) return "Select a condition";
+    if (conditionId === "none") return "No Specific Condition";
+    
+    // Extract the condition name from the ID (e.g., "Category|ConditionName" -> "ConditionName")
+    const parts = conditionId.split('|');
+    return parts.length > 1 ? parts[1] : conditionId;
+  };
+
   return (
     <Card className="w-full max-w-4xl mx-auto shadow-lg mb-8">
       <CardHeader>
@@ -47,7 +57,9 @@ const ConditionSelector: React.FC<ConditionSelectorProps> = ({
           onValueChange={(value) => onConditionChange(value === "none" ? undefined : value)}
         >
           <SelectTrigger className="w-[300px]">
-            <SelectValue placeholder="Select a condition" />
+            <SelectValue placeholder="Select a condition">
+              {getDisplayName(selectedCondition)}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent className="p-0">
             <Command>
