@@ -17,7 +17,7 @@ const SessionContext = createContext<SessionContextType | undefined>(undefined);
 export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // Initialized to true
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,6 +59,15 @@ export const SessionContextProvider: React.FC<{ children: React.ReactNode }> = (
 
     return () => subscription.unsubscribe();
   }, [navigate]);
+
+  // Render a loading state until the session is fully determined
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+        <p className="text-xl">Loading authentication...</p>
+      </div>
+    );
+  }
 
   return (
     <SessionContext.Provider value={{ session, user, isLoading }}>
