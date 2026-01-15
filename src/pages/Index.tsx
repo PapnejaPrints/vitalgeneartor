@@ -282,7 +282,7 @@ const Index = () => {
         <VitalCharts vitalData={vitalData} selectedVitals={selectedVitals} temperatureUnit={temperatureUnit} />
       </>
       <div className="p-4 text-center text-gray-700 dark:text-gray-300 text-sm mt-8">
-        <p>Copyright Brahmleen Papneja</p>
+        <p>Copyright Preet Dhaliwal</p>
       </div>
     </div>
   );
